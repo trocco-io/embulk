@@ -143,6 +143,9 @@ module Embulk
           end
 
           header_line = (first_types != other_types && first_types.all? {|t| ["string", "boolean"].include?(t) }) || guess_string_header_line(sample_records)
+          if header_line
+            header_line = sample_records.first.all?{|r| !r.nil? }
+          end
           column_types = other_types
         end
 
